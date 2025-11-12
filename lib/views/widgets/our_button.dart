@@ -12,5 +12,5 @@ Widget ourButton({title, color = purpleColor, onPress}) {
         padding: const EdgeInsets.all(12),
       ),
       onPressed: onPress,
-      child: boldText(text: title, size: 16.0));
+      child: normalText(text: title, size: 16.0));
 }

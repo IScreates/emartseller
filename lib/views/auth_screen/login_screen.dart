@@ -1,6 +1,9 @@
 import 'package:emartseller/const/const.dart';
+import 'package:emartseller/views/home_screen/home.dart';
 import 'package:emartseller/views/widgets/our_button.dart';
 import 'package:emartseller/views/widgets/text_style.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -46,16 +49,26 @@ class LoginScreen extends StatelessWidget {
                       hintText: passwordHint
                   ),
                 ),
-                30.heightBox,
+                10.heightBox,
+                Align( alignment: Alignment.centerRight,
+                  child: TextButton(onPressed: (){}, child: normalText(text: forgotPassword,color: purpleColor))),
+                20.heightBox,
                 
                 SizedBox(
                   width: context.screenWidth - 100,
                 child: ourButton(
-                  title: login,onPress: (){},
+                  title: login,onPress: (){
+                    Get.to(()=> Home());
+                },
                 )
                 ),
               ],
-            ).box.white.rounded.outerShadowMd.padding(EdgeInsets.all(8)).make()
+            ).box.white.rounded.outerShadowMd.padding(EdgeInsets.all(8)).make(),
+            10.heightBox,
+            Center(child: normalText(text: anyProblem,color: lightGrey)),
+            const Spacer(),
+            Center(child: boldText(text: credit)),
+            20.heightBox,
           ],
       )
       ),
