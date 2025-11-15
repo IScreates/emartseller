@@ -8,3 +8,9 @@ const appname = "eMart Seller App",
     credit = "@Shree";
 
 const emailHint = "eg . vendor@gmail.com",passwordHint = "******";
+const dashboard = "Dashboard";
+const orders = "Orders";
+const products = "Products";
+const settings = "Settings";
+const logout = "Logout";
+const loginTo = "Login to your account";
