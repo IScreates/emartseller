@@ -9,4 +9,4 @@ const icProfile = "assets/icons/profile.png";
 const icShpSettings = "assets/icons/shop_setting.png";
 const icStar = "assets/icons/star.png";
 const icVerify = "assets/icons/verify.png";
-const imgProduct = "assets/icons/product.jpg";
+const imgproduct = "assets/product.jpg";
