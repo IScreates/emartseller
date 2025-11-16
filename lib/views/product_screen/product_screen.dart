@@ -1,5 +1,9 @@
 import 'package:emartseller/const/const.dart';
+import 'package:emartseller/views/product_screen/add_product.dart';
+import 'package:emartseller/views/product_screen/product_details.dart';
 import 'package:emartseller/views/widgets/appbar_widget.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../widgets/text_style.dart';
@@ -12,7 +16,9 @@ class ProductScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: purpleColor,
-        onPressed: () {},
+        onPressed: () {
+          Get.to(()=>AddProduct());
+        },
         child: const Icon(Icons.add, color: white),
       ),
       appBar: appbarWidget(products),
@@ -24,11 +30,19 @@ class ProductScreen extends StatelessWidget {
               children: List.generate(
             20,
             (index) => ListTile(
-              onTap: () {},
+              onTap: () {
+                Get.to(()=>ProductDetails());
+              },
               leading: Image.asset(imgproduct,
                   width: 100, height: 100, fit: BoxFit.cover),
               title: boldText(text: "Product title", color: fontGrey),
-              subtitle: normalText(text: "\$40.0", color: darkGrey),
+              subtitle: Row(
+                children: [
+                  normalText(text: "\$40.0", color: darkGrey),
+                  10.widthBox,
+                  boldText(text: "Featured",color: green)
+                ],
+              ),
               trailing: VxPopupMenu(
                 child: const Icon(Icons.more_vert_rounded),
                 menuBuilder: () => Column(

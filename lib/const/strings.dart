@@ -24,3 +24,19 @@ const unpaid = "Unpaid";
 
 const shopSettings = "Shop Settings";
 const messages = "Messages";
+const  save = "Save";
+const editProfile = "Edit Profile";
+const changeImage = "Change Image";
+
+const nameHint = "eg. Vendor Name",
+      shopDescHint = "Enter your shop description",
+      shopWebsiteHint = "eg. vendor.emart.com",
+      shopAddressHint = "eg. Near Railway Station",
+      shopMobileHint = "eg. +9876543210",
+      description = "Description",
+      website = "Shop Website",
+      address = "Shop Address",
+      mobile = "Shop Mobile",
+      shopname = "Shop Name",
+    username = "Username",
+    confirmPass = "Confirm Password";

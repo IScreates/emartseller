@@ -1,4 +1,5 @@
 import 'package:emartseller/const/const.dart';
+import 'package:emartseller/controllers/auth_controller.dart';
 import 'package:emartseller/views/home_screen/home.dart';
 import 'package:emartseller/views/widgets/our_button.dart';
 import 'package:emartseller/views/widgets/text_style.dart';
@@ -11,6 +12,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: purpleColor,
@@ -34,9 +36,12 @@ class LoginScreen extends StatelessWidget {
             10.heightBox,
 
 
+            Obx(()=>
+
             Column(
               children: [
                 TextFormField(
+                  controller: controller.emailController,
                   decoration: const  InputDecoration(
                     filled: true,
                     fillColor: textfieldGrey,
@@ -47,6 +52,8 @@ class LoginScreen extends StatelessWidget {
                 ),
                 10.heightBox,
                 TextFormField(
+                  obscureText: true,
+                  controller: controller.passwordController,
                   decoration: const  InputDecoration(
                       filled: true,
                       fillColor: textfieldGrey,
@@ -62,14 +69,19 @@ class LoginScreen extends StatelessWidget {
                 
                 SizedBox(
                   width: context.screenWidth - 100,
-                child: ourButton(
-                  title: login,onPress: (){
-                    Get.to(()=> Home());
+                child: controller.isLoading.value ? loadingIndicator() : ourButton(
+                  title: login,onPress: ()async {
+                  await controller.loginMethodVendor(context: context).then((value) {
+                      if (value != null) {
+                        Get.offAll(() => const Home());
+                      }
+                    });
                 },
                 )
                 ),
               ],
             ).box.white.rounded.outerShadowMd.padding(EdgeInsets.all(8)).make(),
+            ),
             10.heightBox,
             Center(child: normalText(text: anyProblem,color: lightGrey)),
             const Spacer(),
@@ -81,4 +93,10 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+loadingIndicator({circleColor = purpleColor}) {
+  return const CircularProgressIndicator(
+    valueColor: AlwaysStoppedAnimation(purpleColor),
+  );
 }
