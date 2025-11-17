@@ -16,13 +16,10 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProductsController());
-    // Log the UID being used for the query
-    print("Querying products for vendor UID: ${currentUser!.uid}");
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: purpleColor,
         onPressed: () {
-          controller.getCategories();
           Get.to(() => const AddProduct());
         },
         child: const Icon(Icons.add, color: white),
@@ -33,7 +30,7 @@ class ProductScreen extends StatelessWidget {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return loadingIndicator();
+              return loadingIndicator(circleColor: Colors.white);
             } else {
               var data = snapshot.data!.docs;
               if (data.isEmpty) {
@@ -70,6 +67,8 @@ class ProductScreen extends StatelessWidget {
                       } else {
                         isFeatured = false;
                       }
+                      final isOwnerOfFeature = docData.containsKey('featured_id') && docData['featured_id'] == currentUser!.uid;
+
 
                       return Card(
                         child: ListTile(
@@ -103,23 +102,31 @@ class ProductScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(12.0),
                                   child: Row(
                                     children: [
-                                      Icon(popupMenuItems[i]),
+                                      Icon(popupMenuItems[i],
+                                      color: isOwnerOfFeature && i == 0 ? green : darkGrey,
+                                      ),
                                       10.widthBox,
                                       normalText(
-                                          text: popupMenuTitles[i],
+                                          text: isOwnerOfFeature && i == 0 ? 'Remove Featured' :popupMenuTitles[i],
                                           color: darkGrey)
                                     ],
                                   ).onTap(() {
                                     switch (i) {
                                       case 0:
-                                        // Add edit functionality here in the future if you need it
+                                        if (isFeatured) {
+                                          controller.removeFeatured(doc.id);
+                                          VxToast.show(context, msg: "Removed from featured");
+                                        } else {
+                                          controller.addFeatured(doc.id);
+                                          VxToast.show(context, msg: "Added to featured");
+                                        }
                                         break;
                                       case 1:
                                         controller.removeProduct(doc.id);
-                                        VxToast.show(context,
-                                            msg: "Product removed");
+                                        VxToast.show(context, msg: "Product removed");
                                         break;
                                       default:
+                                        break;
                                     }
                                   }),
                                 ),

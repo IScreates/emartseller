@@ -29,10 +29,17 @@ class ProductsController extends GetxController {
   var subcategoryvalue = ''.obs;
   var selectedColorIndex = 0.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    getCategories();
+  }
+
   getCategories() async {
     var data = await rootBundle.loadString("lib/services/category_model.json");
     var cat = categoryModelFromJson(data);
     category = cat.categories;
+    populateCategoryList();
   }
 
   populateCategoryList() {
@@ -79,12 +86,11 @@ class ProductsController extends GetxController {
   }
 
   uploadProduct(context) async {
-    isloading(true);
-    await uploadImages();
     var snapshot = await StoreServices.getProfile(currentUser!.uid);
     var sellerName = snapshot.docs.isNotEmpty ? snapshot.docs[0]['name'] : "";
     var store = firestore.collection(productsCollection).doc();
     await store.set({
+      'p_id': store.id,
       'is_featured': false,
       'p_imgs': FieldValue.arrayUnion(pImagesLink),
       'p_wishlist': FieldValue.arrayUnion([]),
@@ -100,23 +106,20 @@ class ProductsController extends GetxController {
       'p_rating': "5.0",
       'vendor_id': currentUser!.uid
     });
-    isloading(false);
-
-    VxToast.show(context, msg: "Product uploaded");
   }
 
   addFeatured(docId) async {
     await firestore
         .collection(productsCollection)
         .doc(docId)
-        .set({'is_featured': true}, SetOptions(merge: true));
+        .set({'is_featured': true, 'featured_id': currentUser!.uid}, SetOptions(merge: true));
   }
 
   removeFeatured(docId) async {
     await firestore
         .collection(productsCollection)
         .doc(docId)
-        .set({'is_featured': false}, SetOptions(merge: true));
+        .set({'is_featured': false, 'featured_id': ''}, SetOptions(merge: true));
   }
 
   removeProduct(docId) async {

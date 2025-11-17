@@ -35,4 +35,12 @@ class StoreServices {
         .where('vendor_id', isEqualTo: uid)
         .get();
   }
+
+  // static getPopularProducts(uid) {
+  //   return firestore
+  //       .collection(productsCollection)
+  //       .where('vendor_id', isEqualTo: uid)
+  //       .orderBy('p_wishlist', descending: true)
+  //       .snapshots();
+  // }
 }
