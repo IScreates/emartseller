@@ -199,6 +199,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                 boldText(text: "Ordered Products", color: fontGrey, size: 16.0),
                 10.heightBox,
                 ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
                   children: List.generate(controller.orders.length, (index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,10 +209,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                           children: [
                             orderPlaceDetails(
                               title1:
-                                  "${controller.orders[index]['title']}".toString(),
-                              title2: "${controller.orders[index]['tprice']}"
-                                  .toString(),
-                              D1: "{${controller.orders[index]['qty']}}x",
+                                  "${controller.orders[index]['title']}",
+                              title2: "\$${controller.orders[index]['tprice']}",
+                              D1: "${controller.orders[index]['qty']}x",
                               D2: "Refundable",
                             ),
                             Padding(
@@ -219,7 +220,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 child: Container(
                                   width: 30,
                                   height: 20,
-                                  color: Color(controller.orders[index]['color']).withOpacity(1.0),
+                                  color: Color(int.parse(controller.orders[index]['color'].toString())).withOpacity(1.0),
                                 )),
                           ],
                         ),
