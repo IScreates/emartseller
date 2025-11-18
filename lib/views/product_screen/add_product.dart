@@ -11,6 +11,8 @@ import 'package:velocity_x/velocity_x.dart';
 class AddProduct extends StatelessWidget {
   const AddProduct({super.key});
 
+  get ller => null;
+
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<ProductsController>();
@@ -60,13 +62,13 @@ class AddProduct extends StatelessWidget {
                     hint: "eg. Nice Product",
                     label: "Description",
                     isDesc: true,
-                    controller: controller.pdescController,
+                    controller: controller.pdescController, textColor: ller, hintColor: null,
                   ),
                   10.heightBox,
                   customTextField(
                     hint: "eg. \$100",
                     label: "Price",
-                    controller: controller.ppriceController,
+                    controller: controller.ppriceController, textColor: ller, hintColor: null,
                   ),
                   10.heightBox,
                   customTextField(
@@ -81,8 +83,8 @@ class AddProduct extends StatelessWidget {
                   productDropdown("Subcategory", controller.subcategoryList,
                       controller.subcategoryvalue, controller),
                   10.heightBox,
-                  const Divider(),
-                  boldText(text: "Choose Product Images"),
+                  const Divider(color: white),
+                  boldText(text: "Choose Product Images", color: white),
                   10.heightBox,
                   Obx(
                     () => Row(
@@ -104,9 +106,9 @@ class AddProduct extends StatelessWidget {
                   normalText(
                       text: "First Image will be display Image",
                       color: lightGrey),
-                  const Divider(),
+                  const Divider(color: white),
                   10.heightBox,
-                  boldText(text: "Choose Products Colors"),
+                  boldText(text: "Choose Products Colors", color: white),
                   10.heightBox,
                   Obx(() => Wrap(
                       spacing: 8.0,
